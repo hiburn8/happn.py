@@ -27,7 +27,8 @@ NORMAL OPTIONS:
 	
 ATTACK OPTIONS:
 
-	warandpeaceout -> send the whole of war and peace as a message to a victim. viewing it will crash their app so they will not be able to delete it.
+	warandpeaceout -> send the whole of war and peace as a message to a victim. 
+	viewing it will crash their app so they will not be able to delete it.
 	
 	brute- -> bruteforce all historic crossings (new to old)
 	
