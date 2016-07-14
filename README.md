@@ -1,14 +1,5 @@
 A command-line version of the Happn app.. with super powers!
 
- __  __                                       
-/\ \/\ \                                      
-\ \ \_\ \     __     _____   _____     ___    
- \ \  _  \  /'__`\  /\ '__`\/\ '__`\ /' _ `\  
-  \ \ \ \ \/\ \L\.\_\ \ \L\ \ \ \L\ \/\ \/\ \ 
-   \ \_\ \_\ \__/.\_\\ \ ,__/\ \ ,__/\ \_\ \ \
-    \/_/\/_/\/__/\/_/ \ \ \/  \ \ \/  \/_/\/_/.py
-                       \ \_\   \ \_\          
-                        \/_/    \/_/                     
 NORMAL OPTIONS:
 	login -> get a fresh API key
 	name -> change your username
