@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import requests
+#bug in requests give ssl issues
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 import json
 import os, sys
 import os.path
@@ -49,8 +52,7 @@ def login():
 
 	url = 'https://connect.happn.fr/connect/oauth/token'
 
-	r = requests.post(url, data=data)
-
+	r = requests.post(url, headers=preAuthHeaders, data=data, verify=False)
 	user_info = r.json()
 
 	myID = user_info['user_id']
@@ -60,8 +62,20 @@ def login():
 	file.write(OAuth)
 	file.close()
 
+
+def refresh():
+	print "refreshing token"
+#		data = {
+#	  'client_id' :  'FUE-idSEP-f7AqCyuMcPr2K-1iCIU_YlvK-M-im3c',
+#	  'client_secret' :  'brGoHSwZsPjJ-lBk0HqEXVtb3UFu-y5l_JcOjD-Ekv',
+#	  'grant_type=refresh_token',
+#	  'refresh_token' : refresh_token
+#	}
+
+
+
 def getMyID():
-	response = session.get("https://api.happn.fr/api/users/me?fields=id", headers=headers)
+	response = session.get("https://api.happn.fr/api/users/me?fields=id", headers=headers, verify=False)
 	if response.status_code ==200:
 			c = response.content
 			parsed_json = json.loads(c)
@@ -75,6 +89,7 @@ def getMyID():
 		return 0
 
 def whoami():
+
 	response = session.get("https://api.happn.fr/api/users/me?fields=display_name,id,name,workplace,gender,fb_id,about", headers=headers)
 	if response.status_code ==200:
 			c = response.content
@@ -357,15 +372,16 @@ else:
 
 api_base = "https://api.happn.fr/api"
 session = requests.Session()
-headers = {"Authorization":"OAuth=\""+OAuth+"\"","Connection":"close","Accept-Language":"en-GB;q=1,en;q=0.75"}
+preAuthHeaders = {'User-Agent': None}
+timeout = 10
+verify = True
+proxy = {'https': 'http://127.0.0.1:8080'} #default Burp port. to proxy to a request add ',proxies=proxy,'
+headers = {"Authorization":"OAuth=\""+OAuth+"\"","Connection":"close","Accept-Language":"en-GB;q=1,en;q=0.75", 'User-Agent': None}
 #headers = {"Authorization":"OAuth=\""+OAuth+"\"","X-Happn-DID": XHappnDID,"X-Happn-CID": XHappnCID,"Signature": Signature,"Connection":"close","Accept-Language":"en-GB;q=1,en;q=0.75"}
 #XHappnDID="" <-not needed
 #XHappnCID="" <-not needed
 #Signature="" <-not needed
-proxy = {
-  'https': 'http://127.0.0.1:8080', #default Burp port. to proxy to a request add ',proxies=proxy,'
-}
-#get Happn ID
+
 myID = getMyID()
 
 if len(sys.argv) > 1:
