@@ -26,5 +26,6 @@ ATTACK OPTIONS:
 	xssdemo -> XSS PoC on happn.com
 	
 DEMO OPTIONS
+
 	demochat -> start a conversation with the Happn bot
 	demoinbox -> show your conversation with the Happn bot
